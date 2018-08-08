@@ -6,6 +6,9 @@ class User < ApplicationRecord
   # users.password_hash in the database is a :string
   include BCrypt
 
+  # model associations
+  has_many :videos, dependent: :destroy
+
   def password
     @password ||= Password.new(password_hash)
   end

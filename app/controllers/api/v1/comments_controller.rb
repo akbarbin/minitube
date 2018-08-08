@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class Api::V1::CommentsController < ApplicationController
   before_action :set_video
   before_action :set_comment, only: [:show, :update, :delete]
 
@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
     @comment = @video.comments.new(comment_params)
 
     if @comment.save
-      render json: @comment, status: :created, location: video_comment_url(@video, @comment)
+      render json: @comment, status: :created, location: api_v1_video_comment_url(@video, @comment)
     else
       render json: @comment.errors, status: :unprocessable_entity
     end

@@ -1,9 +1,9 @@
-class VideosController < ApplicationController
+class Api::V1::VideosController < ApplicationController
   before_action :set_video, only: [:show, :update, :delete]
 
   # GET /videos
   def index
-    @videos = Video.all
+    @videos = current_user.videos.all
     render json: { data: @videos }
   end
 
@@ -14,10 +14,10 @@ class VideosController < ApplicationController
 
   # POST /videos
   def create
-    @video = Video.new(video_params)
+    @video = current_user.videos.new(video_params)
 
     if @video.save
-      render json: @video, status: :created, location: @video
+      render json: @video, status: :created, location: api_v1_video_url(@video)
     else
       render json: @video.errors, status: :unprocessable_entity
     end
