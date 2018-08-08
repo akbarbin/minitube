@@ -4,4 +4,7 @@ Rails.application.routes.draw do
   resources :videos do
     resources :comments
   end
+
+  post 'signin', to: 'authentication#authenticate'
+  post 'signup', to: 'users#create'
 end
