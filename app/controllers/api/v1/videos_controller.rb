@@ -1,9 +1,10 @@
 class Api::V1::VideosController < ApplicationController
   before_action :set_video, only: [:show, :update, :delete]
+  before_action :set_video_authorization, only: [:update, :delete]
 
   # GET /videos
   def index
-    @videos = current_user.videos.all
+    @videos = Video.all
     render json: { data: @videos }
   end
 
@@ -45,6 +46,10 @@ class Api::V1::VideosController < ApplicationController
     @video = Video.find(params[:id])
     rescue ActiveRecord::RecordNotFound => e
       render json: { message: e.message }, status: :not_found
+  end
+
+  def set_video_authorization
+    return render json: { message: 'Unauthorized' }, status: :unauthorized if current_user.id != @video.user_id
   end
 
   def video_params

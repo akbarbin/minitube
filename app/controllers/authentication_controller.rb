@@ -3,7 +3,7 @@ class AuthenticationController < ApplicationController
 
   def authenticate
     @user = User.find_by_email(params[:email])
-    if @user.password == params[:password]
+    if @user && @user.password == params[:password]
       payload = { user_id: @user.id }
 
       hmac_secret = 'my$ecretK3ys'

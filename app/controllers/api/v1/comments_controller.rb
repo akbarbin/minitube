@@ -1,6 +1,7 @@
 class Api::V1::CommentsController < ApplicationController
   before_action :set_video
   before_action :set_comment, only: [:show, :update, :delete]
+  before_action :set_comment_authorization, only: [:update, :delete]
 
   # GET /comments
   def index
@@ -16,6 +17,7 @@ class Api::V1::CommentsController < ApplicationController
   # POST /comments
   def create
     @comment = @video.comments.new(comment_params)
+    @comment.user_id = current_user.id
 
     if @comment.save
       render json: @comment, status: :created, location: api_v1_video_comment_url(@video, @comment)
@@ -51,6 +53,10 @@ class Api::V1::CommentsController < ApplicationController
     @comment = @video.comments.find(params[:id])
     rescue ActiveRecord::RecordNotFound => e
       render json: { message: e.message }, status: :not_found
+  end
+
+  def set_comment_authorization
+    return render json: { message: 'Unauthorized' }, status: :unauthorized if current_user.id != @comment.user_id
   end
 
   def comment_params

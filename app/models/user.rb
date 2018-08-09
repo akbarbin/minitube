@@ -2,6 +2,10 @@ require 'bcrypt'
 
 class User < ApplicationRecord
   attr_accessor :password, :password_confirmation
+
+  validates :email, presence: true,
+                    uniqueness: true
+
   # encrypt password
   # users.password_hash in the database is a :string
   include BCrypt
