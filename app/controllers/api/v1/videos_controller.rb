@@ -4,7 +4,7 @@ class Api::V1::VideosController < ApplicationController
 
   # GET /videos
   def index
-    @videos = Video.all
+    @videos = Video.search(search_params)
     render json: { data: @videos }
   end
 
@@ -37,6 +37,7 @@ class Api::V1::VideosController < ApplicationController
   # DELETE /videos/:id
   def destroy
     @video.destroy
+    @video.source_file.purge
     head :not_content
   end
 
@@ -53,6 +54,10 @@ class Api::V1::VideosController < ApplicationController
   end
 
   def video_params
-    params.require(:video).permit(:title, :source_file)
+    params.require(:video).permit(:title, :source_file, tags: [])
+  end
+
+  def search_params
+    params.fetch(:search, {}).permit(:title, tags: [])
   end
 end

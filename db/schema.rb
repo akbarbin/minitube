@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_09_013655) do
+ActiveRecord::Schema.define(version: 2018_08_09_035403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,9 @@ ActiveRecord::Schema.define(version: 2018_08_09_013655) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.string "tags", array: true
+    t.index ["tags"], name: "index_videos_on_tags"
+    t.index ["title"], name: "index_videos_on_title"
     t.index ["user_id"], name: "index_videos_on_user_id"
   end
 
