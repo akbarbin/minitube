@@ -15,6 +15,7 @@ class Api::V1::VideosController < ApplicationController
   # POST /videos
   def create
     @video = current_user.videos.new(video_params)
+    @video.source_file.attach(video_params[:source_file])
 
     if @video.save
       render json: @video, status: :created, location: api_v1_video_url(@video)
@@ -47,6 +48,6 @@ class Api::V1::VideosController < ApplicationController
   end
 
   def video_params
-    params.require(:video).permit(:title, :source)
+    params.require(:video).permit(:title, :source_file)
   end
 end
