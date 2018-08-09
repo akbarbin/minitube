@@ -18,7 +18,7 @@ local:
 google:
   service: GCS
   project: rubywebinvitation
-  credentials: <%= Rails.root.join("config/config/rubywedding-9a962ec34609.json") %>
+  credentials: <%= Rails.root.join("config/rubywedding-9a962ec34609.json") %>
   bucket: rubywebinvitation.appspot.com
 
 # Use rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
