@@ -5,18 +5,28 @@
 // like app/views/layouts/application.html.erb.
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
-// import Vue from 'vue'
-// import App from '../app.vue'
+import Vue from 'vue'
+import App from '../app.vue'
+import router from '../src/router'
+import { store } from './store'
+import axios from 'axios'
+import lodash from 'lodash'
 
-// document.addEventListener('DOMContentLoaded', () => {
-//   const el = document.body.appendChild(document.createElement('hello'))
-//   const app = new Vue({
-//     el,
-//     render: h => h(App)
-//   })
+import '../src/normalize'
+import '../src/grid'
+import '../src/style'
 
-//   console.log(app)
-// })
+document.addEventListener('DOMContentLoaded', () => {
+  const el = document.body.appendChild(document.createElement('hello'))
+  const app = new Vue({
+    el,
+    router,
+    store,
+    render: h => h(App)
+  })
+
+  console.log(app)
+})
 
 
 // The above code uses Vue without the compiler, which means you cannot
@@ -33,26 +43,26 @@
 // </div>
 
 
-import Vue from 'vue/dist/vue.esm'
-import App from '../app.vue'
-import router from '../src/router'
-import { store } from './store'
-import axios from 'axios'
-import lodash from 'lodash'
+// import Vue from 'vue/dist/vue.esm'
+// import App from '../app.vue'
+// import router from '../src/router'
+// import { store } from './store'
+// import axios from 'axios'
+// import lodash from 'lodash'
 
-import '../src/normalize'
-import '../src/grid'
-import '../src/style'
+// import '../src/normalize'
+// import '../src/grid'
+// import '../src/style'
 
-document.addEventListener('DOMContentLoaded', () => {
-  const app = new Vue({
-    el: '#app',
-    router,
-    store,
-    components: { App },
-    template: '<App/>'
-  })
-})
+// document.addEventListener('DOMContentLoaded', () => {
+//   const app = new Vue({
+//     el: '#app',
+//     router,
+//     store,
+//     components: { App },
+//     template: '<App/>'
+//   })
+// })
 //
 //
 //

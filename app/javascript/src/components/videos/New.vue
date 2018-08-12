@@ -84,7 +84,7 @@ export default {
 
       /* Add the form data as params */
       var tags = this.parseTagsToArray(this.tags);
-      for (i = 0; i <= tags.length; i++) {
+      for (i = 1; i <= tags.length; i++) {
         formData.append('video[tags][]', tags[i]);
       }
 
