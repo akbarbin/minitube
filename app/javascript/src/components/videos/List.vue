@@ -14,7 +14,7 @@
     <div class="section group">
       <div class="video-box" v-for="video in videos" :key="video.id">
         <img v-bind:src="video.source_file_url">
-        <a href="#">{{ video.title }}</a>
+        <router-link :to="{ name: 'ShowVideo', params: { id: video.id }}">{{ video.title }}</router-link>
         <div class="video-feature">
           <i class="ion-ios-person icon-small"></i>
           {{ video.user.name }}

@@ -371,3 +371,22 @@ input[type=checkbox] {
 .video-feature .tags {
   text-transform: lowercase;
 }
+
+.detail {
+  margin: 0 auto;
+  width: 50%;
+  padding: 40px;
+  float: none;
+}
+
+.detail img {
+  height: 20em;
+}
+
+#comments-box {
+  margin-top: 30px;
+}
+
+.comment-item {
+  margin-bottom: 15px;
+}

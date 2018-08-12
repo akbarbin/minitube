@@ -11,7 +11,7 @@ class Api::V1::VideosController < ApplicationController
 
   # GET /videos/:id
   def show
-    render json: @video, methods: :source_file_url
+    render json: @video, :include => { :user => {:only => :name }, comments: {include: { user: {:only => :name} } } }, methods: :source_file_url
   end
 
   # POST /videos
@@ -22,7 +22,7 @@ class Api::V1::VideosController < ApplicationController
     if @video.save
       render json: @video, status: :created, location: api_v1_video_url(@video)
     else
-      render json: { errors: @video.errors }, status: :unprocessable_entity
+      render json: { message: 'Failed to create a video', errors: @video.errors }, status: :unprocessable_entity
     end
   end
 
@@ -31,27 +31,29 @@ class Api::V1::VideosController < ApplicationController
     if @video.update(video_params)
       render json: @video
     else
-      render json: { errors: @video.errors }, status: :unprocessable_entity
+      render json: { message: 'Failed to update a video', errors: @video.errors }, status: :unprocessable_entity
     end
   end
 
   # DELETE /videos/:id
   def destroy
+    if @video.source_file.attached?
+      @video.source_file.purge
+    end
     @video.destroy
-    @video.source_file.purge
     head :not_content
   end
 
   private
 
   def set_video
-    @video = Video.find(params[:id])
+    @video = Video.includes(:user, comments: :user).find(params[:id])
     rescue ActiveRecord::RecordNotFound => e
-      render json: { message: e.message }, status: :not_found
+      render json: { message: 'Record not found', errors: e.message }, status: :not_found
   end
 
   def set_video_authorization
-    return render json: { message: 'Unauthorized' }, status: :unauthorized if current_user.id != @video.user_id
+    render json: { message: 'Unauthorized', errors: 'Unauthorized' }, status: :unauthorized if current_user.id != @video.user_id
   end
 
   def video_params
