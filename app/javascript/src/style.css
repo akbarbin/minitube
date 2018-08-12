@@ -191,8 +191,8 @@ input[type=submit] {
 .navbar-default {
   padding: 25px 0;
   background-color: #fff;
-  -webkit-box-shadow: 0 2px 2px #efefef;
-          box-shadow: 0 2px 2px #efefef;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 2px 6px 2px rgba(60,64,67,0.15);
+          box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 2px 6px 2px rgba(60,64,67,0.15);
 }
 
 .navbar-default .logo {
@@ -268,6 +268,22 @@ input[type=checkbox] {
   margin: 10px 5px 10px 0;
 }
 
+.input-group {
+  position: relative;
+  border-radius: 5px;
+  height: 40px;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 2px 6px 2px rgba(60,64,67,0.15);
+          box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 2px 6px 2px rgba(60,64,67,0.15);
+}
+
+.input-group-addon {
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  text-align: center;
+  color: #e67e22;
+}
+
 *:focus {outline: none;}
 
 .form-messages {
@@ -283,3 +299,75 @@ input[type=checkbox] {
 .success { background-color: #2ecc71 }
 
 .error { background-color: #e74c3c }
+
+#filter-form {
+  position: relative;
+  width: 40%;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+
+#filter-form input[type="text"] {
+  width: 100%;
+  height: 40px;
+  border: none;
+  padding-left: 40px;
+}
+
+.filter-input button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  height: 40px;
+  width: 80px;
+  background-color: #e67e22;
+  border: none;
+  color: #fff;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  -webkit-transition: background-color 0.2s, color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.filter-input button:hover {
+  background-color: #cf6d17;
+}
+
+/* ------------------------------------------------ */
+/* VIDEOS */
+/* ------------------------------------------------ */
+.video-box {
+  width: 23%;
+	padding: 1%;
+  margin: 1% 0 1% 1.6%;
+	display: block;
+  float: left;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 2px 6px 2px rgba(60,64,67,0.15);
+          box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 2px 6px 2px rgba(60,64,67,0.15);
+}
+
+.video-box a {
+  color: #555;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 85%;
+  margin-bottom: 15px;
+  font-weight: 400;
+  border-bottom: 1px solid transparent;
+}
+
+.video-box a:hover,
+.video-box a:active {
+  color: #e67e22;
+}
+
+.video-box img {
+  width: 100%;
+  height: 10em;
+  margin-bottom: 15px;
+}
+
+.video-feature .tags {
+  text-transform: lowercase;
+}

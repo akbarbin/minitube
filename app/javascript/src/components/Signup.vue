@@ -17,7 +17,7 @@
             <label for="name">Name</label>
           </div>
           <div class="col span_2_of_3">
-            <input v-model="name" type="text" name="name" id="name" placeholder="Your name">
+            <input v-model="name" type="text" name="name" id="name" placeholder="Your name" required>
             <p class="help-block" v-if="errors['name']">{{ errors["name"][0] }}</p>            
           </div>
         </div>
@@ -26,7 +26,7 @@
             <label for="email">Email</label>
           </div>
           <div class="col span_2_of_3">
-            <input v-model="email" type="email" name="email" id="email" placeholder="Your email">
+            <input v-model="email" type="email" name="email" id="email" placeholder="Your email" required>
             <p class="help-block" v-if="errors['email']">{{ errors["email"][0] }}</p>
           </div>
         </div>
@@ -35,7 +35,7 @@
             <label for="password">Password</label>
           </div>
           <div class="col span_2_of_3">
-            <input v-model="password" type="password" name="password" id="password" placeholder="Your password">
+            <input v-model="password" type="password" name="password" id="password" placeholder="Your password" required>
             <p class="help-block" v-if="errors['password']">{{ errors["password"][0] }}</p>
           </div>
         </div>

@@ -1,16 +1,17 @@
 class Api::V1::VideosController < ApplicationController
-  before_action :set_video, only: [:show, :update, :delete]
-  before_action :set_video_authorization, only: [:update, :delete]
+  skip_before_action :authorize_request, only: [:index, :show]
+  before_action :set_video, only: [:show, :update, :destroy]
+  before_action :set_video_authorization, only: [:update, :destroy]
 
   # GET /videos
   def index
-    @videos = Video.search(search_params)
-    render json: { data: @videos }
+    @videos = Video.search(search_params).includes(:user)
+    render json: { videos: @videos }, :include => {:user => {:only => :name} }, methods: :source_file_url
   end
 
   # GET /videos/:id
   def show
-    render json: @video
+    render json: @video, methods: :source_file_url
   end
 
   # POST /videos
@@ -58,6 +59,6 @@ class Api::V1::VideosController < ApplicationController
   end
 
   def search_params
-    params.fetch(:search, {}).permit(:title, tags: [])
+    params.permit(:keyword, :title, tags: [])
   end
 end

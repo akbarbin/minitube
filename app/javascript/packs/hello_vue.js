@@ -38,6 +38,7 @@ import App from '../app.vue'
 import router from '../src/router'
 import { store } from './store'
 import axios from 'axios'
+import lodash from 'lodash'
 
 import '../src/normalize'
 import '../src/grid'

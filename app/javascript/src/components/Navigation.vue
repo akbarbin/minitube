@@ -4,6 +4,7 @@
       <div class="section clearfix">
         <router-link to='/' class="logo">MiniTube</router-link>
         <ul>
+          <li v-if="isLoggedIn()"><router-link to="/videos/new">Upload</router-link>
           <li v-if="!isLoggedIn()"><router-link to='/signin'>Sign in</router-link></li>
           <li v-if="!isLoggedIn()"><router-link to='/signup'>Sign up</router-link></li>
           <li v-if="isLoggedIn()"><a href="#" @click="signOut">Sign out</a></li>

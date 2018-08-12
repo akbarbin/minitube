@@ -65,33 +65,33 @@ export default {
   },
   methods: {
     signin() {
-      let self = this;
+      let vm = this;
 
       axios.post('/signin', { email: this.email, password: this.password})
         .then(function(response) {
-          self.signinSuccessfull(response);
+          vm.signinSuccessfull(response);
         })
         .catch(function(error) {
-          self.signinFailed(error);
+          vm.signinFailed(error);
         })
     },
     signinSuccessfull(response) {
-      let self = this;
+      let vm = this;
       axios({
         method: 'get',
         url: '/profile',
         headers: {'Authorization': response.data.auth_token}
       })
         .then(function(profileResponse) {
-          self.error = '';
-          self.success = response.data.message;
+          vm.error = '';
+          vm.success = response.data.message;
 
-          self.$store.commit('setCurrentUser', { currentUser: profileResponse.data, auth_token: response.data.auth_token });
+          vm.$store.commit('setCurrentUser', { currentUser: profileResponse.data, auth_token: response.data.auth_token });
 
-          self.$router.replace('/');
+          vm.$router.replace('/');
         })
         .catch(function(error) {
-          self.signinFailed(error);
+          vm.signinFailed(error);
         })
     },
     signinFailed(error) {

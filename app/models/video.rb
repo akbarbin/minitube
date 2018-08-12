@@ -15,6 +15,8 @@ class Video < ApplicationRecord
     params.each do |key, value|
       if value.present?
         case key.to_s
+        when "keyword"
+          conditions << "videos.title ILIKE '%#{value}%' OR videos.tags @> ARRAY['#{value}']::varchar[]"
         when "title"
           conditions << "videos.title ILIKE '%#{value}%'"
         when "tags"
@@ -26,5 +28,13 @@ class Video < ApplicationRecord
     end
 
     where(conditions.join(" AND "))
+  end
+
+  def source_file_url
+    if self.source_file.attached?
+      Rails.application.routes.url_helpers.rails_blob_path(self.source_file, only_path: true)
+    else
+      nil
+    end
   end
 end
