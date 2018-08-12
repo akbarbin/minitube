@@ -11,18 +11,6 @@ class Video < ApplicationRecord
 
   # Searching video by title and tags
   def self.search(params)
-    # params.each do |key, val|
-    #   if val.present?
-    #     case key.to_s
-    #     when "title"
-    #       where("videos.title ILIKE ?", "%#{val}%")
-    #     when "tags"
-    #       where('videos.tags @> ARRAY[?]::varchar[]', [val].flatten.compact)
-    #     else
-    #       all
-    #     end
-    #   end
-    # end
     conditions = []
     params.each do |key, value|
       if value.present?

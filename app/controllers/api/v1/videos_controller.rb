@@ -21,7 +21,7 @@ class Api::V1::VideosController < ApplicationController
     if @video.save
       render json: @video, status: :created, location: api_v1_video_url(@video)
     else
-      render json: @video.errors, status: :unprocessable_entity
+      render json: { errors: @video.errors }, status: :unprocessable_entity
     end
   end
 
@@ -30,7 +30,7 @@ class Api::V1::VideosController < ApplicationController
     if @video.update(video_params)
       render json: @video
     else
-      render json: @video.errors, status: :unprocessable_entity
+      render json: { errors: @video.errors }, status: :unprocessable_entity
     end
   end
 

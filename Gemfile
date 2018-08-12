@@ -18,6 +18,10 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 gem "google-cloud-storage", "~> 1.8", require: false
 
+
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+gem 'rack-cors'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

@@ -1,4 +1,4 @@
-class AuthenticationController < ApplicationController
+class Api::V1::AuthenticationController < ApplicationController
   skip_before_action :authorize_request, only: :authenticate
 
   def authenticate
@@ -9,9 +9,13 @@ class AuthenticationController < ApplicationController
       hmac_secret = 'my$ecretK3ys'
       auth_token = JWT.encode(payload, hmac_secret)
 
-      render json: { auth_token: auth_token}
+      render json: { message: 'Successfully signed in', auth_token: auth_token }
     else
-      render json: { message: 'Invalid credentials'}, status: :unauthorized
+      render json: { error: 'Invalid credentials' }, status: :unauthorized
     end
+  end
+
+  def destroy
+    render json: { message: 'Successfully sign out', auth_token: '' }, status: :ok
   end
 end
