@@ -12,7 +12,7 @@
         {{ error }}
       </div>
       <div class="video-box detail">
-        <img v-bind:src="video.source_file_url">
+        <video ref="videoRef" v-bind:src="video.source_file_url" id="video-container" width="100%" controls></video>
         <a>{{ video.title }}</a>
         <div class="video-feature">
           <i class="ion-ios-person icon-small"></i>
@@ -22,10 +22,9 @@
           <i class="ion-md-pricetags icon-small"></i>
           <span class="tags">{{ joinWith(video.tags) }}</span>
         </div>
-        <div class="video-feature">
-          <router-link v-if="isLoggedIn()" :to="{ name: 'EditVideo', params: { id: video.id }}" class="btn btn-full">Edit</router-link>
-          <a href="#" v-if="isLoggedIn()" class="btn btn-full" @click="removeVideo()">Delete</a>
-        </div>
+        <br>
+        <router-link v-if="isVideoOwner(video)" :to="{ name: 'EditVideo', params: { id: video.id }}" class="btn btn-full">Edit</router-link>
+        <a href="#" v-if="isVideoOwner(video)" class="btn btn-full" @click="removeVideo()">Delete</a>
       </div>
     </div>
     <div class="section" id="comments-box">
@@ -37,7 +36,7 @@
               <i class="ion-ios-person icon-small"></i>
               <b>{{ comment.user.name }}</b>
             </div>
-            <p>{{ comment.body }} <i class="ion-md-trash icon-small" @click="removeComment(comment)"></i></p>
+            <p>{{ comment.body }} <i class="ion-md-trash icon-small" v-if="isCommentOwner(comment)" @click="removeComment(comment)"></i></p>
           </div>
         </div>
         <br>
@@ -135,8 +134,12 @@ export default {
     isLoggedIn() {
       return (this.$store.state.signedIn);
     },
-    isOwner() {
-      return (this.$store.state.signedIn);
+    isVideoOwner(video) {
+      return (this.$store.state.currentUser.id === video.user.id );
+    },
+    isCommentOwner(comment) {
+      console.log(comment)
+      return (this.$store.state.currentUser.id === comment.user.id );
     },
     removeVideo () {
       axios({

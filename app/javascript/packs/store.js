@@ -10,8 +10,8 @@ export const store = new Vuex.Store({
     videos: []
   },
   getters: {
-    currentAuthToken(state) {
-      return state.auth_token;
+    currentUser(state) {
+      return state.currentUser;
     }
   },
   mutations: {

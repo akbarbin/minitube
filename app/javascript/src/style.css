@@ -338,7 +338,7 @@ input[type=checkbox] {
 /* VIDEOS */
 /* ------------------------------------------------ */
 .video-box {
-  width: 23%;
+  width: 30%;
 	padding: 1%;
   margin: 1% 0 1% 1.6%;
 	display: block;
@@ -374,7 +374,7 @@ input[type=checkbox] {
 
 .detail {
   margin: 0 auto;
-  width: 50%;
+  width: 65%;
   padding: 40px;
   float: none;
 }

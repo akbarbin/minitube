@@ -11,7 +11,7 @@ class Api::V1::VideosController < ApplicationController
 
   # GET /videos/:id
   def show
-    render json: @video, :include => { :user => {:only => :name }, comments: {include: { user: {:only => :name} } } }, methods: :source_file_url
+    render json: @video, :include => { :user => {:only => [:name, :id] }, comments: {include: { user: {:only => [:name, :id]} } } }, methods: :source_file_url
   end
 
   # POST /videos
