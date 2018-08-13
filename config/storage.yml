@@ -39,7 +39,7 @@ local:
 
 google:
   service: GCS
-  credentials: <%= Rails.root.join("/config/rubywedding-9a962ec34609.json") %>
+  credentials: <%= Rails.root.join("config/rubywedding-9a962ec34609.json") %>
   project: "rubywebinvitation"
   bucket: "rubywebinvitation.appspot.com"
 
