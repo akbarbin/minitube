@@ -37,9 +37,12 @@
               <i class="ion-ios-person icon-small"></i>
               <b>{{ comment.user.name }}</b>
             </div>
-            <p>{{ comment.body }}</p>
+            <p>{{ comment.body }} <i class="ion-md-trash icon-small" @click="removeComment(comment)"></i></p>
           </div>
         </div>
+        <br>
+        <input type="text" autofocus autocomplete="off" placeholder="Puts a comment here?"
+      v-model="video.newComment" @keyup.enter="addComment()" />
       </div>
     </div>
   </section>
@@ -55,6 +58,7 @@ export default {
       loading: false,
       video: {
         user: {},
+        newComment: [],
         comments: []
       },
       success: '',
@@ -131,6 +135,9 @@ export default {
     isLoggedIn() {
       return (this.$store.state.signedIn);
     },
+    isOwner() {
+      return (this.$store.state.signedIn);
+    },
     removeVideo () {
       axios({
         method: 'delete',
@@ -141,6 +148,34 @@ export default {
       })
         .then(response => this.$router.replace('/'))
         .catch(error => this.$router.replace('/'))
+    },
+    addComment () {
+      var body = this.video.newComment && this.video.newComment.trim()
+      if (!body) {
+        return
+      }
+      axios({
+        method: 'post',
+        url: '/api/v1/videos/'+this.$route.params.id+ '/comments',
+        headers: {'Authorization': this.$store.state.auth_token},
+        data: {
+          comment: { body: body }
+        }
+      })
+        .then(response => {
+          this.video.comments.push(response.data)
+          this.video.newComment = ''
+        })
+        .catch(error => this.error = error.response)
+    },
+    removeComment (comment) {
+       axios({
+        method: 'delete',
+        url: '/api/v1/videos/'+this.$route.params.id+ '/comments/' + comment.id,
+        headers: {'Authorization': this.$store.state.auth_token},
+      })
+        .then(response => this.video.comments.splice(this.video.comments.indexOf(comment), 1))
+        .catch(error => this.error = error.response)
     }
   }
 }

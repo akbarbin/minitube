@@ -20,7 +20,7 @@ class Api::V1::CommentsController < ApplicationController
     @comment.user_id = current_user.id
 
     if @comment.save
-      render json: @comment, status: :created, location: api_v1_video_comment_url(@video, @comment)
+      render json: @comment, :include => { :user => {:only => :name } }, status: :created, location: api_v1_video_comment_url(@video, @comment)
     else
       render json: { errors: @comment.errors }, status: :unprocessable_entity
     end
@@ -37,8 +37,8 @@ class Api::V1::CommentsController < ApplicationController
 
   # DELETE /comments/:id
   def destroy
+    @comment = Comment.find(params[:id])
     @comment.destroy
-    head :not_content
   end
 
   private
@@ -50,7 +50,7 @@ class Api::V1::CommentsController < ApplicationController
   end
 
   def set_comment
-    @comment = @video.comments.find(params[:id])
+    @comment = Comment.find(params[:id])
     rescue ActiveRecord::RecordNotFound => e
       render json: { message: e.message }, status: :not_found
   end

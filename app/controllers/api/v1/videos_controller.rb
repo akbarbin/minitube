@@ -41,7 +41,6 @@ class Api::V1::VideosController < ApplicationController
       @video.source_file.purge
     end
     @video.destroy
-    head :not_content
   end
 
   private
